@@ -1,0 +1,168 @@
+*A:vsc# admin display-config 
+# TiMOS-DC-C-4.0.5-60 cpm/i386 NUAGE VSC Copyright (c) 2000-2016 Nokia.
+# All rights reserved. All use subject to applicable license agreements.
+# Built on Mon Oct 10 00:49:21 PDT 2016 [5f9ab7] by builder in /rel4.0-DC/b1/5/panos/main
+
+# Generated THU NOV 17 02:24:25 2016 UTC
+
+exit all
+configure
+#--------------------------------------------------
+echo "System Configuration"
+#--------------------------------------------------
+    system
+        name "vsc"
+        snmp
+        exit
+        time
+            ntp
+                server 10.10.10.2
+                no shutdown
+            exit
+            sntp
+                shutdown
+            exit
+            dst-zone CST
+                start second sunday march 02:00
+                end first sunday november 02:00
+            exit
+            zone CST 
+        exit
+        thresholds
+            rmon
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "System Security Configuration"
+#--------------------------------------------------
+    system
+        security
+            tls-profile "ex-tls-profile" create
+                own-key "cf1:\vsc-nsg-Key.pem"
+                own-certificate "cf1:\vsc-nsg.pem"
+                ca-certificate "cf1:\vsc-nsg-CA.pem"
+                no shutdown
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Log Configuration"
+#--------------------------------------------------
+    log 
+    exit 
+#--------------------------------------------------
+echo "System Security Cpm Hw Filters and PKI Configuration"
+#--------------------------------------------------
+    system
+        security
+        exit
+    exit
+#--------------------------------------------------
+echo "QoS Policy Configuration"
+#--------------------------------------------------
+    qos
+    exit
+#--------------------------------------------------
+echo "Card Configuration"
+#--------------------------------------------------
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service
+    exit
+#--------------------------------------------------
+echo "LAG Configuration"
+#--------------------------------------------------
+    lag 98
+        description "Multichassis interconnect LAG"
+        encap-type dot1q
+        qos
+        exit
+        lacp active administrative-key 36864 
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "Virtual Switch Controller Configuration"
+#--------------------------------------------------
+    vswitch-controller
+        xmpp-server "vsd:password@vsd.sdwan.lab"
+        open-flow
+            tls-profile "ex-tls-profile"
+        exit
+        xmpp
+            tls-profile "ex-tls-profile"
+        exit
+        ovsdb
+        exit
+    exit
+#--------------------------------------------------
+echo "Management Router Configuration"
+#--------------------------------------------------
+    router management
+    exit
+
+#--------------------------------------------------
+echo "Router (Network Side) Configuration"
+#--------------------------------------------------
+    router 
+        interface "control"
+            address 10.10.10.6/24
+            no shutdown
+        exit
+        interface "system"
+            shutdown
+        exit
+        vxlan
+        exit
+        autonomous-system 65000
+        router-id 10.10.10.6
+#--------------------------------------------------
+echo "Static Route Configuration"
+#--------------------------------------------------
+        static-route 0.0.0.0/0 next-hop 10.10.10.1
+#--------------------------------------------------
+echo "Web Portal Protocol Configuration"
+#--------------------------------------------------
+    exit
+
+#--------------------------------------------------
+echo "Service Configuration"          
+#--------------------------------------------------
+    service
+        customer 1 create
+            description "Default customer"
+        exit
+    exit
+#--------------------------------------------------
+echo "Router (Service Side) Configuration"
+#--------------------------------------------------
+    router 
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            enable-peer-tracking
+            rapid-withdrawal
+            rapid-update evpn
+            group "vscs"
+                family evpn
+                type internal
+                neighbor 10.10.10.8
+                exit
+            exit
+            no shutdown
+        exit
+    exit
+
+#--------------------------------------------------
+echo "System Time NTP Configuration"
+#--------------------------------------------------
+    system
+        time
+            ntp
+            exit
+        exit
+    exit
+
+exit all

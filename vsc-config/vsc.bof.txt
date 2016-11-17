@@ -1,0 +1,20 @@
+*A:vsc# show bof 
+===============================================================================
+BOF (Memory)
+===============================================================================
+    primary-image         cf1:\timos\cpm.tim
+    primary-config        cf1:\config.cfg
+    primary-dns           10.10.10.2
+    dns-domain            sdwan.lab
+    static-route          0.0.0.0/1 next-hop 10.10.10.1
+    static-route          128.0.0.0/1 next-hop 10.10.10.1
+    autonegotiate
+    duplex                full
+    speed                 100
+    wait                  3
+    persist               off
+    li-local-save
+    li-separate
+    console-speed         115200
+===============================================================================
+
