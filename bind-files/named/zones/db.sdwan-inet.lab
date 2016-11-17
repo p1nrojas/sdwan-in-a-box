@@ -1,0 +1,20 @@
+$TTL 604800
+@ IN SOA ns.sdwan-inet.lab. admin.sdwan-inet.lab (
+                            11 ; Serial
+                            604800 ; Refresh
+                            86400 ; Retry
+                            2419200 ; Expire
+                            604800 ) ; Negative Cache TTL
+;
+; name servers – NS records
+
+sdwan-inet.lab. IN NS ns.sdwan-inet.lab.
+
+; name servers – A records
+ns.sdwan-inet.lab. IN A 80.80.80.2
+
+; 80.80.80.0/16 – A records
+vsc.sdwan-inet.lab. IN A 80.80.80.6
+
+; VNS servers records`
+util.sdwan-inet.lab. IN A 80.80.80.7

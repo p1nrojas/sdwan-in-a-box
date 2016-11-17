@@ -1,0 +1,30 @@
+zone "sdwan.lab" {
+ type master;
+ file "/etc/named/zones/db.sdwan.lab"; # zone file path
+};
+
+zone "sdwan-wan.lab" {
+ type master;
+ file "/etc/named/zones/db.sdwan-wan.lab"; # zone file path
+};
+
+zone "sdwan-inet.lab" {
+ type master;
+ file "/etc/named/zones/db.sdwan-inet.lab"; # zone file path
+};
+
+zone "10.10.10.in-addr.arpa" {
+ type master;
+ file "/etc/named/zones/db.10.10.10";
+};
+
+zone "10.250.250.in-addr.arpa" {
+ type master;
+ file "/etc/named/zones/db.10.250.250";
+};
+
+zone "80.80.80.in-addr.arpa" {
+ type master;
+ file "/etc/named/zones/db.80.80.80";
+};
+
